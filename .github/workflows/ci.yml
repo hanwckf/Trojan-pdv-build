@@ -1,0 +1,43 @@
+name: Release CI
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build-1
+      run: make && mv trojan trojan-mips24kec
+    - name: build-2
+      run: make BUILD_STATIC=y && make clean && mv trojan trojan-mips24kec-static
+    - name: build-3
+      run: make MT7621=y && mv trojan trojan-mips1004kec
+    - name: build-4
+      run: make MT7621=y BUILD_STATIC=y && mv trojan trojan-mips1004kec-static
+    - name: release
+      if: github.ref == 'v*'
+      run: tar -cJvf trojan-mipsel.tar.xz trojan-*
+    - name: Create Release
+      id: create_release
+      if: github.ref == 'v*'
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset
+      if: github.ref == 'v*'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./trojan-mipsel.tar.xz
+        asset_name: trojan-mipsel.tar.xz
