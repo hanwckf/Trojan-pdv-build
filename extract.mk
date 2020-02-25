@@ -16,5 +16,5 @@ $(STAGEDIR)/$(OpenSSL_SRC):
 	tar -xf $(DL_DIR)/$(OpenSSL_SRC).tar.gz -C $(STAGEDIR)
 
 $(STAGEDIR)/$(Boost_SRC):
-	7z x -o$(STAGEDIR) $(DL_DIR)/$(Boost_SRC).7z
+	7z x -bsp0 -o$(STAGEDIR) $(DL_DIR)/$(Boost_SRC).7z
 
