@@ -75,7 +75,7 @@ build_trojan: build_prepare
 	)
 
 clean:
-	rm -rf $(STAGEDIR)
+	rm -rf $(STAGEDIR) trojan
 
 distclean: clean
 	rm -rf $(DL_DIR)

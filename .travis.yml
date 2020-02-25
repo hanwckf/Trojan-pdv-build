@@ -12,7 +12,7 @@ script:
 - make MT7621=y && mv trojan output/trojan-mips1004kec
 - make MT7621=y BUILD_STATIC=y && mv trojan output/trojan-mips1004kec-static
 - ls -lh output/*
-- tar -cJvf trojan-mipsel.tar.xz output/*
+- tar -cJf trojan-mipsel.tar.xz output/*
 deploy:
   provider: releases
   api_key:
