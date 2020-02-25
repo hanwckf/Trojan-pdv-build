@@ -7,6 +7,11 @@ ifeq ($(BUILD_STATIC),y)
 TROJAN_STATIC_BUILD := ON
 endif
 
+TROJAN_REUSEPORT := OFF
+ifeq ($(ENABLE_REUSEPORT),y)
+TROJAN_REUSEPORT := ON
+endif
+
 CPUFLAGS := -mips32r2 -march=mips32r2
 ifeq ($(MT7621),y)
 CPUFLAGS += -mtune=1004kc
@@ -58,7 +63,7 @@ build_trojan: build_prepare
 			-DCMAKE_TOOLCHAIN_FILE=$(DIR)/cross-mipsel-linux.cmake \
 			-DBoost_USE_STATIC_LIBS=ON \
 			-DENABLE_MYSQL=OFF \
-			-DENABLE_REUSE_PORT=OFF \
+			-DENABLE_REUSE_PORT=$(TROJAN_REUSEPORT) \
 			-DSYSTEMD_SERVICE=OFF \
 			-DENABLE_STATIC=$(TROJAN_STATIC_BUILD) \
 			.. ; \
