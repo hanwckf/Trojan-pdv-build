@@ -17,6 +17,9 @@ ifeq ($(MT7621),y)
 CPUFLAGS += -mtune=1004kc
 endif
 
+CPU_OVERLOAD	= 1
+HOST_NCPU = $(shell if [ -f /proc/cpuinfo ]; then n=`grep -c processor /proc/cpuinfo`; if [ $$n -gt 1 ];then expr $$n \* ${CPU_OVERLOAD}; else echo $$n; fi; else echo 1; fi)
+
 CFLAGS := -O3 -ffunction-sections -fdata-sections
 CXXFLAGS := -O3 -ffunction-sections -fdata-sections
 LDFLAGS := -Wl,--gc-sections
@@ -43,7 +46,7 @@ build_boost: build_prepare
 	( cd $(STAGEDIR)/$(Boost_SRC); \
 		./bootstrap.sh --with-libraries=$(Boost_libs) --prefix=../root ; \
 		echo "using gcc : mips : $(CXX) : <compileflags>\"$(CPUFLAGS)\" <cxxflags>\"$(CXXFLAGS)\" <cflags>\"$(CFLAGS)\" <linkflags>\"$(LDFLAGS)\" ;" >> project-config.jam ; \
-		./b2 toolset=gcc-mips link=static variant=release runtime-link=shared install ; \
+		./b2 -j $(HOST_NCPU) toolset=gcc-mips link=static variant=release runtime-link=shared install ; \
 	)
 
 OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 no-idea no-seed no-whirlpool no-deprecated no-tests
@@ -51,7 +54,7 @@ OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 no-idea no-seed no-w
 build_openssl: build_prepare
 	( cd $(STAGEDIR)/$(OpenSSL_SRC); \
 		./Configure linux-mips32 --prefix=/ $(OPENSSL_OPT) $(CPUFLAGS) $(CFLAGS) $(LDFLAGS) ; \
-		make -j4 CROSS_COMPILE=$(CROSS_COMPILE) CC=$(CC) all ; \
+		make -j$(HOST_NCPU) CROSS_COMPILE=$(CROSS_COMPILE) CC=$(CC) all ; \
 		make CROSS_COMPILE=$(CROSS_COMPILE) CC=$(CC) DESTDIR=../root install_sw install_ssldirs ; \
 	)
 
@@ -67,7 +70,7 @@ build_trojan: build_prepare
 			-DSYSTEMD_SERVICE=OFF \
 			-DENABLE_STATIC=$(TROJAN_STATIC_BUILD) \
 			.. ; \
-		make -j4 && $(CROSS_COMPILE)strip trojan ; \
+		make -j$(HOST_NCPU) && $(CROSS_COMPILE)strip trojan ; \
 	)
 
 clean:
