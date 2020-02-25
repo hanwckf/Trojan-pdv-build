@@ -9,6 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - run: echo ${{ github.ref }}
     - name: build-1
       run: make && mv trojan trojan-mips24kec
     - name: build-2
@@ -17,12 +18,12 @@ jobs:
       run: make MT7621=y && mv trojan trojan-mips1004kec
     - name: build-4
       run: make MT7621=y BUILD_STATIC=y && mv trojan trojan-mips1004kec-static
-    - name: release
-      if: github.ref == 'v*'
+    - name: pack
+      if: github.ref == 'refs/tags/*'
       run: tar -cJvf trojan-mipsel.tar.xz trojan-*
     - name: Create Release
       id: create_release
-      if: github.ref == 'v*'
+      if: github.ref == 'refs/tags/*'
       uses: actions/create-release@v1
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,7 +34,7 @@ jobs:
         prerelease: false
     - name: Upload Release Asset
       id: upload-release-asset
-      if: github.ref == 'v*'
+      if: github.ref == 'refs/tags/*'
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
