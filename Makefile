@@ -31,6 +31,7 @@ CXX = $(CROSS_COMPILE)g++
 
 all: dl extract
 	make build
+	cp -f $(STAGEDIR)/$(Trojan_SRC)/build/trojan .
 
 build:
 	make build_boost
