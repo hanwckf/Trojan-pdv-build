@@ -47,7 +47,7 @@ build_boost: build_prepare
 		./b2 -d 0 -j $(HOST_NCPU) toolset=gcc-mips link=static variant=release runtime-link=shared install ; \
 	)
 
-OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 no-idea no-seed no-whirlpool no-deprecated no-tests no-pic no-stdio no-engine
+OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 no-idea no-seed no-whirlpool no-deprecated no-tests no-pic no-engine
 
 build_openssl: build_prepare
 	( cd $(STAGEDIR)/$(OpenSSL_SRC); \
