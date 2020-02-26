@@ -55,8 +55,8 @@ OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 no-idea no-seed no-w
 build_openssl: build_prepare
 	( cd $(STAGEDIR)/$(OpenSSL_SRC); \
 		./Configure linux-mips32 --prefix=/ $(OPENSSL_OPT) $(CPUFLAGS) $(CFLAGS) $(LDFLAGS) ; \
-		make -j$(HOST_NCPU) CROSS_COMPILE=$(CROSS_COMPILE) all ; \
-		make CROSS_COMPILE=$(CROSS_COMPILE) DESTDIR=../root install_sw install_ssldirs ; \
+		make -j$(HOST_NCPU) CROSS_COMPILE=$(CROSS_COMPILE) CC=$(CC) all ; \
+		make CROSS_COMPILE=$(CROSS_COMPILE) CC=$(CC) DESTDIR=../root install_sw install_ssldirs ; \
 	)
 
 build_trojan: build_prepare
