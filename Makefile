@@ -75,6 +75,9 @@ build_trojan: build_prepare
 		make -j$(HOST_NCPU) && $(CROSS_COMPILE)strip trojan ; \
 	)
 
+clean_trojan:
+	rm -rf $(STAGEDIR)/$(Trojan_SRC)/build
+
 clean:
 	rm -rf $(STAGEDIR) trojan
 
