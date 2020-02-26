@@ -2,10 +2,7 @@ DIR := $(shell pwd)
 STAGEDIR := $(DIR)/stage
 DL_DIR := $(DIR)/dl
 
-TROJAN_STATIC_BUILD := OFF
-ifeq ($(BUILD_STATIC),y)
-TROJAN_STATIC_BUILD := ON
-endif
+BUILD_STATIC ?= n
 
 TROJAN_REUSEPORT := OFF
 ifeq ($(ENABLE_REUSEPORT),y)
@@ -59,17 +56,21 @@ build_openssl: build_prepare
 		make CROSS_COMPILE=$(CROSS_COMPILE) CC=$(CC) DESTDIR=../root install_sw install_ssldirs ; \
 	)
 
+TROJAN_LDFLAGS := $(LDFLAGS)
+ifeq ($(BUILD_STATIC),y)
+TROJAN_LDFLAGS += -static
+endif
+
 build_trojan: build_prepare
 	( cd $(STAGEDIR)/$(Trojan_SRC); mkdir -p build ; cd build ; \
 		CROSS_ROOT=$(CROSS_ROOT) STAGEDIR=$(STAGEDIR)/root \
-		CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" CPUFLAGS="$(CPUFLAGS)" \
+		CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(TROJAN_LDFLAGS)" CPUFLAGS="$(CPUFLAGS)" \
 		cmake \
 			-DCMAKE_TOOLCHAIN_FILE=$(DIR)/cross-mipsel-linux.cmake \
 			-DBoost_USE_STATIC_LIBS=ON \
 			-DENABLE_MYSQL=OFF \
 			-DENABLE_REUSE_PORT=$(TROJAN_REUSEPORT) \
 			-DSYSTEMD_SERVICE=OFF \
-			-DENABLE_STATIC=$(TROJAN_STATIC_BUILD) \
 			.. ; \
 		make -j$(HOST_NCPU) && $(CROSS_COMPILE)strip trojan ; \
 	)
