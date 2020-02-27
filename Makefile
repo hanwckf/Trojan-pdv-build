@@ -26,6 +26,9 @@ CROSS_COMPILE = $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
 CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
 
+help:
+	@echo "Usage: make all [BUILD_STATIC=y|N] [MT7621=y|N] [ENABLE_REUSEPORT=y|N]"
+
 all: dl extract
 	make build
 	cp -f $(STAGEDIR)/$(Trojan_SRC)/build/trojan .
