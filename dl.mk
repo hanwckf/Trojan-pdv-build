@@ -10,7 +10,8 @@ Boost_VERSION_MAJOR := 1
 Boost_VERSION_MINOR := 72
 Boost_VERSION_PATCH := 0
 Boost_SRC := boost_$(Boost_VERSION_MAJOR)_$(Boost_VERSION_MINOR)_$(Boost_VERSION_PATCH)
-Boost_URL := https://dl.bintray.com/boostorg/release/$(Boost_VERSION_MAJOR).$(Boost_VERSION_MINOR).$(Boost_VERSION_PATCH)/source/$(Boost_SRC).7z
+#Boost_URL := https://dl.bintray.com/boostorg/release/$(Boost_VERSION_MAJOR).$(Boost_VERSION_MINOR).$(Boost_VERSION_PATCH)/source/$(Boost_SRC).7z
+Boost_URL := https://sourceforge.net/projects/boost/files/boost/$(Boost_VERSION_MAJOR).$(Boost_VERSION_MINOR).$(Boost_VERSION_PATCH)/$(Boost_SRC).7z
 
 Toolchain_URL := https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/mipsel-linux-uclibc.tar.xz
 Toolchain_Archive := mipsel-linux-uclibc.tar.xz
