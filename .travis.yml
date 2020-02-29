@@ -6,9 +6,9 @@ addons:
     packages:
     - p7zip-full
 script:
-- make all BUILD_STATIC=y && mv trojan trojan-mips24kec-static
+- make all BUILD_STATIC=y ENABLE_REUSEPORT=y && mv trojan trojan-mips24kec-static
 - make clean
-- make all MT7621=y BUILD_STATIC=y && mv trojan trojan-mips1004kec-static
+- make all MT7621=y BUILD_STATIC=y ENABLE_REUSEPORT=y && mv trojan trojan-mips1004kec-static
 - ls -lh trojan-*
 - 7z a -mx9 trojan-mipsel-static.7z trojan-*
 deploy:
