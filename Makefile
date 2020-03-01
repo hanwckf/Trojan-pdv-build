@@ -19,11 +19,11 @@ LDFLAGS := -Wl,--gc-sections
 
 CROSS_ROOT = $(STAGEDIR)/toolchain/$(ARCH)
 ifeq ($(ARCH),aarch64)
-CROSS_COMPILE := $(CROSS_ROOT)/bin/aarch64-linux-gnu-
+CROSS_COMPILE := $(CROSS_ROOT)/bin/aarch64-linux-musl-
 OPENSSL_ARCH := linux-aarch64
 else
 ifeq ($(ARCH),armhf)
-CROSS_COMPILE := $(CROSS_ROOT)/bin/arm-linux-gnueabihf-
+CROSS_COMPILE := $(CROSS_ROOT)/bin/armv7l-linux-musleabihf-
 OPENSSL_ARCH := linux-generic32
 else
 ifeq ($(ARCH),mips1004kec)

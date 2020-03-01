@@ -13,21 +13,15 @@ Boost_SRC := boost_$(Boost_VERSION_MAJOR)_$(Boost_VERSION_MINOR)_$(Boost_VERSION
 #Boost_URL := https://dl.bintray.com/boostorg/release/$(Boost_VERSION_MAJOR).$(Boost_VERSION_MINOR).$(Boost_VERSION_PATCH)/source/$(Boost_SRC).7z
 Boost_URL := https://sourceforge.net/projects/boost/files/boost/$(Boost_VERSION_MAJOR).$(Boost_VERSION_MINOR).$(Boost_VERSION_PATCH)/$(Boost_SRC).7z
 
-ifneq ($(TRAVIS),)
-Toolchain_ARM_URL_PREFIX := https://dl.armbian.com/_toolchains
-else
-Toolchain_ARM_URL_PREFIX := https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/_toolchains
-endif
-
 ifeq ($(ARCH),aarch64)
-Toolchain_Archive := gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu.tar.xz
-Toolchain_URL := $(Toolchain_ARM_URL_PREFIX)/$(Toolchain_Archive)
-TAR_EXT_ARGS = --strip-components 1
+Toolchain_Archive := aarch64-linux-musl-cross.tgz
+Toolchain_URL := https://more.musl.cc/8.3.1/x86_64-linux-musl/$(Toolchain_Archive)
+TAR_EXT_ARGS = --strip-components 2
 else
 ifeq ($(ARCH),armhf)
-Toolchain_Archive := gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf.tar.xz
-Toolchain_URL := $(Toolchain_ARM_URL_PREFIX)/$(Toolchain_Archive)
-TAR_EXT_ARGS = --strip-components 1
+Toolchain_Archive := armv7l-linux-musleabihf-cross.tgz
+Toolchain_URL := https://more.musl.cc/8.3.1/x86_64-linux-musl/$(Toolchain_Archive)
+TAR_EXT_ARGS = --strip-components 2
 else
 Toolchain_Archive := mipsel-linux-uclibc.tar.xz
 Toolchain_URL := https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/$(Toolchain_Archive)

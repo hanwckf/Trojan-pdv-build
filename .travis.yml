@@ -6,16 +6,16 @@ addons:
     packages:
     - p7zip-full
 script:
-- make all ARCH=mips24kec BUILD_STATIC=y && mv trojan trojan-mips24kec-static
+- make all ARCH=mips24kec BUILD_STATIC=y && mv trojan trojan-mips24kec-uclibc-static
 - make clean
-- make all ARCH=mips1004kec BUILD_STATIC=y && mv trojan trojan-mips1004kec-static
+- make all ARCH=mips1004kec BUILD_STATIC=y && mv trojan trojan-mips1004kec-uclibc-static
 - make clean
-- make all ARCH=aarch64 BUILD_STATIC=y && mv trojan trojan-aarch64-static
+- make all ARCH=aarch64 BUILD_STATIC=y && mv trojan trojan-aarch64-musl-static
 - make clean
-- make all ARCH=armhf BUILD_STATIC=y && mv trojan trojan-armhf-static
+- make all ARCH=armhf BUILD_STATIC=y && mv trojan trojan-armhf-musl-static
 - ls -lh trojan-*
-- 7z a -mx9 trojan-mipsel-static.7z trojan-mips*
-- 7z a -mx9 trojan-arm-static.7z trojan-aarch64-static trojan-armhf-static
+- 7z a -mx9 trojan-mipsel-uclibc-static.7z trojan-mips*
+- 7z a -mx9 trojan-arm-musl-static.7z trojan-aarch64-musl-static trojan-armhf-musl-static
 deploy:
   provider: releases
   skip_cleanup: true
@@ -23,8 +23,8 @@ deploy:
   api_key:
     secure: jqodLCa61br7dVMMNL/GSuKw3ZPtwEuvgYDPrp87T+f7WNVuiG8CDzPtoGEM7TB7P3Gpc/P1kuTkwYjS7buXhWiZMxGVzSXQt+9nIaUukN1k/VkKEXzrO9vO6974yf7N9ROF1NC4+4ifP50RCgc7o64LClOfdiUPHJs/jc1w3YsuKnIJwKoIpIeJeaLw76CPNety70jj2GM86y96A87xADIkWRpjGoNSwC8Z+BO3ycOU5dhPobSdbZAHrE/VCCZmtfVBs87GxnHLf2ShNNEi7O3ZgRIHPLgrv//p6lbJOFW/Wwmzplc25gA1XwA3MA/7xKrvKCYq/vPLnmhk5nVuQAqJyd7XGH8jFcWStbAqmmOCccmgAGLR5q/hTXKsvwYCOa37BfgIhLEmVFZoc9EilN65LiRDYNeMIBIjNXnr9T10gp4U0YAP5okG0YqUEmO8dFMtNh/Zr7UwltdTGjo/sk2ultpUMp+VUifrMHKKc541IsC0C4X/QiRJ4FwWXIg0hUggEx1b7yVZfbfwk4oiCtADslNrlv+Z8B4kji7jl/9YOZw+xJtJ1SquEDYkb7SSTlqAFfqopB+rvt9Z+/0+nDnwyYqQAHuLRZ2wHhDLMYuJpbfAxI4UVs6NgyRRqt+lGYvzFxViBz9c90CNYs6HtUFWoY+U0VCO8BlNG2YHfmE=
   file:
-    - trojan-mipsel-static.7z
-    - trojan-arm-static.7z
+    - trojan-mipsel-uclibc-static.7z
+    - trojan-arm-musl-static.7z
   on:
     repo: hanwckf/Trojan-pdv-build
     tags: true
