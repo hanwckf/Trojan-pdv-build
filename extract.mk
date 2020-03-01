@@ -1,13 +1,13 @@
 .PHONY: extract
 
-extract: extract_prepare $(STAGEDIR)/toolchain $(STAGEDIR)/$(Trojan_SRC) $(STAGEDIR)/$(OpenSSL_SRC) $(STAGEDIR)/$(Boost_SRC)
+extract: extract_prepare $(STAGEDIR)/$(Trojan_SRC) $(STAGEDIR)/$(OpenSSL_SRC) $(STAGEDIR)/$(Boost_SRC) $(CROSS_ROOT)
 
 extract_prepare:
 	@mkdir -p $(STAGEDIR)
 
-$(STAGEDIR)/toolchain:
-	mkdir -p $(STAGEDIR)/toolchain
-	tar -xf $(DL_DIR)/$(Toolchain_Archive) -C $(STAGEDIR)/toolchain
+$(CROSS_ROOT):
+	mkdir -p $(CROSS_ROOT)
+	tar -xf $(DL_DIR)/$(Toolchain_Archive) -C $(CROSS_ROOT) $(TAR_EXT_ARGS)
 
 $(STAGEDIR)/$(Trojan_SRC):
 	tar -xf $(DL_DIR)/$(Trojan_SRC).tar.gz -C $(STAGEDIR)

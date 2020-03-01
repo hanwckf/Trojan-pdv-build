@@ -1,9 +1,9 @@
 #
-# CMake Toolchain file for crosscompiling on mipsel.
+# CMake Toolchain file for crosscompiling.
 #
 # This can be used when running cmake in the following way:
 #  cd build/
-#  cmake .. -DCMAKE_TOOLCHAIN_FILE=../cross-mipsel-linux.cmake
+#  cmake .. -DCMAKE_TOOLCHAIN_FILE=../cross-linux.cmake
 
 set(CROSS_PATH "$ENV{CROSS_ROOT}")
 
@@ -11,8 +11,8 @@ set(CROSS_PATH "$ENV{CROSS_ROOT}")
 set(CMAKE_SYSTEM_NAME Linux)
 
 # Name of C compiler.
-set(CMAKE_C_COMPILER "${CROSS_PATH}/bin/mipsel-linux-uclibc-gcc")
-set(CMAKE_CXX_COMPILER "${CROSS_PATH}/bin/mipsel-linux-uclibc-g++")
+set(CMAKE_C_COMPILER "$ENV{CC}")
+set(CMAKE_CXX_COMPILER "$ENV{CXX}")
 
 # Where to look for the target environment. (More paths can be added here)
 set(CMAKE_FIND_ROOT_PATH "${CROSS_PATH}" "$ENV{STAGEDIR}")
