@@ -21,7 +21,7 @@ CFLAGS := -O3 -ffunction-sections -fdata-sections
 CXXFLAGS := -O3 -ffunction-sections -fdata-sections
 LDFLAGS := -Wl,--gc-sections
 
-CROSS_ROOT = $(STAGEDIR)/mipsel-linux-uclibc
+CROSS_ROOT = $(STAGEDIR)/toolchain
 CROSS_COMPILE = $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
 CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
