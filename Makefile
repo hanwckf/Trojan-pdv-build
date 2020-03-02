@@ -25,6 +25,7 @@ else
 ifeq ($(ARCH),armhf)
 CROSS_COMPILE := $(CROSS_ROOT)/bin/armv7l-linux-musleabihf-
 OPENSSL_ARCH := linux-generic32
+CXXFLAGS += -Wno-psabi
 else
 ifeq ($(ARCH),mips1004kec)
 CPUFLAGS := -mips32r2 -march=mips32r2 -mtune=1004kc
