@@ -30,11 +30,13 @@ else
 ifeq ($(ARCH),mips1004kec)
 CPUFLAGS := -mips32r2 -march=mips32r2 -mtune=1004kc
 CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
+#CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
 else
 ifeq ($(ARCH),mips24kec)
 CPUFLAGS := -mips32r2 -march=mips32r2
 CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
+#CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
 endif
 endif
@@ -91,6 +93,7 @@ build_trojan: build_prepare
 			-DBoost_USE_STATIC_LIBS=ON \
 			-DENABLE_MYSQL=OFF \
 			-DENABLE_REUSE_PORT=$(TROJAN_REUSEPORT) \
+			-DFORCE_TCP_FASTOPEN=ON \
 			-DSYSTEMD_SERVICE=OFF \
 			.. ; \
 		make -j$(HOST_NCPU) && $(CROSS_COMPILE)strip trojan ; \

@@ -25,6 +25,9 @@ TAR_EXT_ARGS = --strip-components 2
 else
 Toolchain_Archive := mipsel-linux-uclibc.tar.xz
 Toolchain_URL := https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/$(Toolchain_Archive)
+#Toolchain_Archive := mipsel-linux-musl-cross.tgz
+#Toolchain_URL := https://more.musl.cc/8.3.1/x86_64-linux-musl/$(Toolchain_Archive)
+#TAR_EXT_ARGS = --strip-components 2
 endif
 endif
 
