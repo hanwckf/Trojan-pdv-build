@@ -1,4 +1,4 @@
-Trojan_VERSION := 1.15.1
+Trojan_VERSION := 1.16.0
 Trojan_SRC := trojan-$(Trojan_VERSION)
 Trojan_URL := https://github.com/trojan-gfw/trojan/archive/v$(Trojan_VERSION).tar.gz
 
