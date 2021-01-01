@@ -25,16 +25,19 @@ else
 ifeq ($(ARCH),armhf)
 CROSS_COMPILE := $(CROSS_ROOT)/bin/armv7l-linux-musleabihf-
 OPENSSL_ARCH := linux-generic32
+CFLAGS += -DOPENSSL_PREFER_CHACHA_OVER_GCM
 CXXFLAGS += -Wno-psabi
 else
 ifeq ($(ARCH),mips1004kec)
 CPUFLAGS := -mips32r2 -march=mips32r2 -mtune=1004kc
+CFLAGS += -DOPENSSL_PREFER_CHACHA_OVER_GCM
 CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
 #CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
 else
 ifeq ($(ARCH),mips24kec)
 CPUFLAGS := -mips32r2 -march=mips32r2
+CFLAGS += -DOPENSSL_PREFER_CHACHA_OVER_GCM
 CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
 #CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
@@ -70,7 +73,10 @@ build_boost: build_prepare
 		./b2 -d 0 -j $(HOST_NCPU) toolset=gcc-cross link=static variant=release runtime-link=shared install ; \
 	)
 
-OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 no-idea no-seed no-whirlpool no-deprecated no-tests no-pic no-engine no-hw
+OPENSSL_OPT = no-shared no-ssl3-method no-sm2 no-sm3 no-sm4 \
+  no-idea no-seed no-whirlpool no-deprecated no-tests no-pic \
+  no-engine no-comp no-gost no-dtls no-mdc2 no-aria no-cms \
+  no-rfc3779 no-blake2 no-psk no-srp no-sse2 no-cast
 
 build_openssl: build_prepare
 	( cd $(STAGEDIR)/$(OpenSSL_SRC); \
