@@ -64,7 +64,8 @@ build:
 build_prepare:
 	@mkdir -p $(STAGEDIR)/root
 
-Boost_libs := date_time,program_options,system
+#Boost_libs := date_time,program_options,system
+Boost_libs := date_time,program_options,system,atomic,contract,chrono,exception,iostreams,random,thread,timer
 
 build_boost: build_prepare
 	( cd $(STAGEDIR)/$(Boost_SRC); \

@@ -18,4 +18,5 @@ $(STAGEDIR)/$(OpenSSL_SRC):
 
 $(STAGEDIR)/$(Boost_SRC):
 	7z x -bsp0 -o$(STAGEDIR) $(DL_DIR)/$(Boost_SRC).7z
+	for p in $$(ls patches/boost/*.patch); do patch -p1 -d $(STAGEDIR)/$(Boost_SRC) < $$p; done
 
