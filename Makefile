@@ -31,15 +31,15 @@ else
 ifeq ($(ARCH),mips1004kec)
 CPUFLAGS := -mips32r2 -march=mips32r2 -mtune=1004kc
 CFLAGS += -DOPENSSL_PREFER_CHACHA_OVER_GCM
-CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
-#CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
+#CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
+CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
 else
 ifeq ($(ARCH),mips24kec)
 CPUFLAGS := -mips32r2 -march=mips32r2
 CFLAGS += -DOPENSSL_PREFER_CHACHA_OVER_GCM
-CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
-#CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
+#CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
+CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
 endif
 endif
