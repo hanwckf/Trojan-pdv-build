@@ -23,11 +23,17 @@ Toolchain_Archive := armv7l-linux-musleabihf-cross.tgz
 Toolchain_URL := https://more.musl.cc/10/x86_64-linux-musl/$(Toolchain_Archive)
 TAR_EXT_ARGS = --strip-components 1
 else
+ifeq ($(ARCH),x86_64)
+Toolchain_Archive := x86_64-linux-musl-cross.tgz
+Toolchain_URL := https://more.musl.cc/10/x86_64-linux-musl/$(Toolchain_Archive)
+TAR_EXT_ARGS = --strip-components 1
+else
 #Toolchain_Archive := mipsel-linux-uclibc.tar.xz
 #Toolchain_URL := https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1/$(Toolchain_Archive)
 Toolchain_Archive := mipsel-linux-musl-cross.tgz
 Toolchain_URL := https://more.musl.cc/10/x86_64-linux-musl/$(Toolchain_Archive)
 TAR_EXT_ARGS = --strip-components 1
+endif
 endif
 endif
 

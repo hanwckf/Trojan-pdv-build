@@ -41,6 +41,11 @@ CFLAGS += -DOPENSSL_PREFER_CHACHA_OVER_GCM
 #CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-uclibc-
 CROSS_COMPILE := $(CROSS_ROOT)/bin/mipsel-linux-musl-
 OPENSSL_ARCH := linux-mips32
+else
+ifeq ($(ARCH),x86_64)
+CROSS_COMPILE := $(CROSS_ROOT)/bin/x86_64-linux-musl-
+OPENSSL_ARCH := linux-x86_64
+endif
 endif
 endif
 endif
@@ -50,7 +55,7 @@ CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
 
 help:
-	@echo "Usage: make all [ARCH=mips24kec|mips1004kec|aarch64|armhf] [BUILD_STATIC=y|N] [ENABLE_REUSEPORT=Y|n]"
+	@echo "Usage: make all [ARCH=x86_64|mips24kec|mips1004kec|aarch64|armhf] [BUILD_STATIC=y|N] [ENABLE_REUSEPORT=Y|n]"
 
 all: dl extract
 	make build
