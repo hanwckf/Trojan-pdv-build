@@ -34,7 +34,7 @@ jobs:
           tar -cvJf trojan-static.tar.xz trojan-*
       - name: Upload images to Artifact
         if: ${{ github.event_name != 'release' && success() }}
-        uses: actions/upload-artifact@v2.2.1
+        uses: actions/upload-artifact@v4
         with:
           name: trojan-static
           path: trojan-static.tar.xz
