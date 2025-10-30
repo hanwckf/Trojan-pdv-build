@@ -1,6 +1,12 @@
+ifeq ($(TROJAN_PLUS),y)
+Trojan_VERSION := master
+Trojan_URL := https://github.com/Trojan-Plus-Group/trojan-plus.git
+else
 Trojan_VERSION := 1.16.0
-Trojan_SRC := trojan-$(Trojan_VERSION)
 Trojan_URL := https://github.com/trojan-gfw/trojan/archive/v$(Trojan_VERSION).tar.gz
+endif
+
+Trojan_SRC := trojan-$(Trojan_VERSION)
 
 OpenSSL_VERSION := 1.1.1m
 OpenSSL_SRC := openssl-$(OpenSSL_VERSION)
@@ -44,7 +50,9 @@ CURL = curl --create-dirs -L
 dl: $(DL_DIR)/$(Trojan_SRC).tar.gz $(DL_DIR)/$(OpenSSL_SRC).tar.gz $(DL_DIR)/$(Boost_SRC).7z $(DL_DIR)/$(Toolchain_Archive)
 
 $(DL_DIR)/$(Trojan_SRC).tar.gz:
+ifneq ($(TROJAN_PLUS),y)
 	$(CURL) $(Trojan_URL) -o $(DL_DIR)/$(Trojan_SRC).tar.gz
+endif
 
 $(DL_DIR)/$(OpenSSL_SRC).tar.gz:
 	$(CURL) $(OpenSSL_URL) -o $(DL_DIR)/$(OpenSSL_SRC).tar.gz
